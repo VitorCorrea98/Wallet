@@ -1,7 +1,7 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
 import { AnyAction } from 'redux';
-import { EXPENSE_SUBMIT, FETCH_DONE, TOTAL_DISPENSE } from '../actions';
+import { DELETE_DISPENSE, EXPENSE_SUBMIT, FETCH_DONE, TOTAL_DISPENSE } from '../actions';
 import { NewCurrencyInitialValue, NewCurrencyType, WalletCurrency } from '../../type';
 
 const INITIAL_VALUE: WalletCurrency = {
@@ -24,7 +24,6 @@ export const walletFetch = (state = INITIAL_VALUE, action: AnyAction) => {
           exchangeRates: action.payload,
         },
       };
-
     case EXPENSE_SUBMIT:
       return {
         ...state,
@@ -41,24 +40,26 @@ export const walletFetch = (state = INITIAL_VALUE, action: AnyAction) => {
           },
         ],
       };
-
     case TOTAL_DISPENSE:
       if (state.expenses) {
-        const TotalExpense = state.expenses.reduce((acc, curr: NewCurrencyType) => {
-          const current = curr.currency;
-          const currentAsk = curr.exchangeRates[current].ask;
-          const currentValue = curr.value;
-          const fixedValue = parseFloat((currentAsk * currentValue).toFixed(2));
-          return acc + fixedValue;
-        }, 0);
-        console.log(TotalExpense);
+        const TotalExpense = state.expenses.reduce(
+          (acc, curr: NewCurrencyType) => acc + parseFloat(
+            (curr.exchangeRates[curr.currency].ask * curr.value).toFixed(2),
+          ),
+          0,
+        );
         return {
           ...state,
           expensesValue: TotalExpense,
         };
-      }
-      break;
+      } break;
 
+    case DELETE_DISPENSE:
+      return {
+        ...state,
+        expenses: state
+          .expenses.filter((el: NewCurrencyType) => el.id !== action.payload.id),
+      };
     default:
       return state;
   }

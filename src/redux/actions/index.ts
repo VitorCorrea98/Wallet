@@ -7,6 +7,7 @@ export const FETCH_DONE = 'FETCH_DONE';
 export const FORM_SUBMIT = 'FORM_SUBMIT';
 export const EXPENSE_SUBMIT = 'EXPENSE_SUBMIT';
 export const TOTAL_DISPENSE = 'TOTAL_DISPENSE';
+export const DELETE_DISPENSE = 'DELETE_DISPENSE';
 
 export const LoginAction = (payload: FormLogin) => ({
   type: LOGIN,
@@ -23,6 +24,13 @@ export const ExpenseSubmit = (payload: WalletFormType) => (
 );
 
 export const TotalDispense = () => ({ type: TOTAL_DISPENSE });
+
+export const DeleteDispense = (id: number) => ({
+  type: DELETE_DISPENSE,
+  payload: {
+    id,
+  },
+});
 
 export const fetchAPI = () => {
   return async (dispatch: Dispatch) => {

@@ -42,7 +42,7 @@ export type NewCurrencyType = {
 
 export const NewCurrencyInitialValue = {
   id: -2,
-  value: 0,
+  value: 0.00,
   description: '',
   currency: '',
   method: '',

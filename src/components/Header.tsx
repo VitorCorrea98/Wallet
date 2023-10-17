@@ -16,7 +16,7 @@ function Header() {
       </p>
       <p>
         Despesa total:
-        <span data-testid="total-field">{expensesValue}</span>
+        <span data-testid="total-field">{expensesValue.toFixed(2)}</span>
         {' '}
         <span data-testid="header-currency-field">{currentCurrency}</span>
       </p>
