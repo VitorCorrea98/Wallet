@@ -10,8 +10,8 @@ export const WalletInitialValue = {
   value: '',
   description: '',
   currency: 'USD',
-  method: 'dinheiro',
-  tag: 'alimentacao',
+  method: 'Dinheiro',
+  tag: 'Alimentação',
 };
 
 export type WalletFormType = {
