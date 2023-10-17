@@ -39,6 +39,7 @@ function Login() {
           value={ form.email }
           onChange={ handleChange }
           data-testid="email-input"
+          autoComplete="true"
         />
         <input
           type="password"

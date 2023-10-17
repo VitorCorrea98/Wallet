@@ -6,8 +6,60 @@ export type FormLogin = {
   password: string
 };
 
+export const WalletInitialValue = {
+  value: '',
+  description: '',
+  currency: 'USD',
+  method: 'dinheiro',
+  tag: 'alimentacao',
+};
+
+export type WalletFormType = {
+  value: string,
+  description: string,
+  currency: string,
+  method: string,
+  tag: string,
+};
+
+export type AllRatesFetch = {
+  moeda: {
+    code: string,
+    name: string,
+    ask: string
+  }
+};
+
+export type NewCurrencyType = {
+  id: number,
+  value: number,
+  description: string,
+  currency: string,
+  method: string,
+  tag: string,
+  exchangeRates: any
+};
+
+export const NewCurrencyInitialValue = {
+  id: -2,
+  value: 0,
+  description: '',
+  currency: '',
+  method: '',
+  tag: '',
+  exchangeRates: {
+    code: '',
+    name: '',
+    ask: '',
+  },
+};
+
 export type WalletCurrency = {
-  currency: string[]
+  currentCurrency: string
+  expenses: [],
+  newExpense: NewCurrencyType,
+  expensesValue: number,
+  currencies: any
 };
 
 export type ReduxState = {
