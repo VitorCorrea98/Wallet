@@ -9,9 +9,12 @@ const INITIAL_STATE: FormLogin = { email: '', password: '' };
 export const userReducer = (state = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {
     case LOGIN:
-      return action.payload;
+      return {
+        ...state,
+        email: action.payload.email,
+        password: action.payload.password,
+      };
 
-    default:
-      return state;
+    default: return state;
   }
 };

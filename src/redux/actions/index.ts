@@ -1,35 +1,37 @@
-// Coloque aqui suas
+import { Dispatch, ExpenseFormType, FormLogin } from '../../type';
 
-import { Dispatch, FormLogin, WalletFormType } from '../../type';
-
+//   --------------
 export const LOGIN = 'LOGIN';
-export const FETCH_DONE = 'FETCH_DONE';
-export const FORM_SUBMIT = 'FORM_SUBMIT';
+//   --------------
+export const GET_CURRENCIES = 'GET_CURRENCIES';
+//   --------------
+
 export const EXPENSE_SUBMIT = 'EXPENSE_SUBMIT';
-export const TOTAL_DISPENSE = 'TOTAL_DISPENSE';
 export const DELETE_DISPENSE = 'DELETE_DISPENSE';
 
-export const LoginAction = (payload: FormLogin) => ({
+export const LoginAction = ({ email, password }: FormLogin) => ({
   type: LOGIN,
-  payload,
+  payload: {
+    email,
+    password,
+  },
 });
 
-export const fectDone = (payload: string[]) => ({
-  type: FETCH_DONE,
-  payload,
+export const fectDone = (currencies: string[]) => ({
+  type: GET_CURRENCIES,
+  payload: currencies,
 });
 
-export const ExpenseSubmit = (payload: WalletFormType) => (
-  { type: EXPENSE_SUBMIT, payload }
+export const ExpenseSubmit = (expense: ExpenseFormType) => (
+  {
+    type: EXPENSE_SUBMIT,
+    payload: expense,
+  }
 );
 
-export const TotalDispense = () => ({ type: TOTAL_DISPENSE });
-
-export const DeleteDispense = (id: number) => ({
+export const DeleteExpense = (id: number) => ({
   type: DELETE_DISPENSE,
-  payload: {
-    id,
-  },
+  payload: id,
 });
 
 export const fetchAPI = () => {
@@ -37,7 +39,9 @@ export const fetchAPI = () => {
     try {
       const response = await fetch('https://economia.awesomeapi.com.br/json/all');
       const data = await response.json();
-      dispatch(fectDone(data));
+      const currencies = Object.keys(data)
+        .filter((currencie) => currencie !== 'USDT');
+      dispatch(fectDone(currencies));
     } catch (error) {
       console.log(error);
     }

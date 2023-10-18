@@ -6,7 +6,8 @@ export type FormLogin = {
   password: string
 };
 
-export const WalletInitialValue = {
+export const WalletFormTypeInitialValue = {
+  id: 0,
   value: '',
   description: '',
   currency: 'USD',
@@ -15,6 +16,7 @@ export const WalletInitialValue = {
 };
 
 export type WalletFormType = {
+  id: number,
   value: string,
   description: string,
   currency: string,
@@ -22,49 +24,30 @@ export type WalletFormType = {
   tag: string,
 };
 
-export type AllRatesFetch = {
-  moeda: {
-    code: string,
-    name: string,
-    ask: string
-  }
-};
-
-export type NewCurrencyType = {
-  id: number,
-  value: number,
-  description: string,
-  currency: string,
-  method: string,
-  tag: string,
-  exchangeRates: any
-};
-
-export const NewCurrencyInitialValue = {
-  id: -2,
-  value: 0.00,
-  description: '',
-  currency: '',
-  method: '',
-  tag: '',
+export type ExpenseFormType = {
+  id: number;
+  value: string;
+  description: string;
+  currency: string;
+  method: string;
+  tag: string;
   exchangeRates: {
-    code: '',
-    name: '',
-    ask: '',
-  },
+    [currency: string]: {
+      code: string;
+      name: string;
+      ask: string;
+    };
+  };
 };
 
-export type WalletCurrency = {
-  currentCurrency: string
-  expenses: [],
-  newExpense: NewCurrencyType,
-  expensesValue: number,
-  currencies: any
+export type ExpenseType = {
+  expenses: ExpenseFormType[],
+  currencies: [],
 };
 
 export type ReduxState = {
   user: FormLogin,
-  wallet: WalletCurrency
+  wallet: ExpenseType
 };
 
-export type Dispatch = ThunkDispatch<WalletCurrency, null, AnyAction>;
+export type Dispatch = ThunkDispatch<ReduxState, null, AnyAction>;

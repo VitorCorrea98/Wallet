@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ExpenseSubmit, TotalDispense, fetchAPI } from '../redux/actions';
-import { Dispatch, ReduxState, WalletFormType, WalletInitialValue } from '../type';
+import { ExpenseSubmit, fetchAPI } from '../redux/actions';
+import {
+  Dispatch, ReduxState, WalletFormType, WalletFormTypeInitialValue,
+} from '../type';
+import { fetchCurrencies } from '../service/fetch';
 
 function WalletForm() {
-  const [form, setForm] = useState<WalletFormType>(WalletInitialValue);
+  const [form, setForm] = useState<WalletFormType>(WalletFormTypeInitialValue);
   const { currencies } = useSelector(
     (state:
     ReduxState) => state.wallet,
   );
 
-  const dispatchFetch: Dispatch = useDispatch();
-  const dispatch = useDispatch();
+  const dispatch: Dispatch = useDispatch();
 
   const handleChange = ({ target: { id, value } }:
   React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -21,16 +23,28 @@ function WalletForm() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(ExpenseSubmit(form));
-    dispatch(TotalDispense());
-    dispatchFetch(fetchAPI());
-    setForm(WalletInitialValue);
+
+    const rates = await fetchCurrencies();
+
+    const currentExpense = { ...form, exchangeRates: rates };
+    dispatch(ExpenseSubmit(currentExpense));
+
+    setForm(() => ({
+      id: currentExpense.id + 1,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    }));
   };
 
+  const enabled = form.description && form.value;
+
   useEffect(() => {
-    dispatchFetch(fetchAPI());
+    dispatch(fetchAPI());
   }, []);
 
   return (
@@ -106,7 +120,7 @@ function WalletForm() {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <button type="submit">Adicionar despesa</button>
+        <button disabled={ !enabled } type="submit">Adicionar despesa</button>
       </form>
     </div>
   );
