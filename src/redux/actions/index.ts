@@ -7,7 +7,8 @@ export const GET_CURRENCIES = 'GET_CURRENCIES';
 //   --------------
 
 export const EXPENSE_SUBMIT = 'EXPENSE_SUBMIT';
-export const DELETE_DISPENSE = 'DELETE_DISPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const UPDATE_EXPENSE = 'UPDATE_EXPENSE';
 
 export const LoginAction = ({ email, password }: FormLogin) => ({
   type: LOGIN,
@@ -30,8 +31,16 @@ export const ExpenseSubmit = (expense: ExpenseFormType) => (
 );
 
 export const DeleteExpense = (id: number) => ({
-  type: DELETE_DISPENSE,
+  type: DELETE_EXPENSE,
   payload: id,
+});
+
+export const UpdateExpense = (expense: ExpenseFormType, updateId: number) => ({
+  type: UPDATE_EXPENSE,
+  payload: {
+    updateId,
+    expense,
+  },
 });
 
 export const fetchAPI = () => {

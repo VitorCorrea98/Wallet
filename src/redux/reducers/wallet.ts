@@ -1,10 +1,12 @@
 import { AnyAction } from 'redux';
 import { ExpenseType } from '../../type';
-import { DELETE_DISPENSE, EXPENSE_SUBMIT, GET_CURRENCIES } from '../actions';
+import { DELETE_EXPENSE, EXPENSE_SUBMIT, GET_CURRENCIES } from '../actions';
 
 const INITIAL_STATE: ExpenseType = {
   currencies: [],
   expenses: [],
+  updateId: null,
+  isUpdating: false,
 };
 
 export const WalletReducer = (state = INITIAL_STATE, action: AnyAction) => {
@@ -19,7 +21,7 @@ export const WalletReducer = (state = INITIAL_STATE, action: AnyAction) => {
         ...state,
         expenses: [...state.expenses, action.payload],
       };
-    case DELETE_DISPENSE:
+    case DELETE_EXPENSE:
       return {
         ...state,
         expenses: state.expenses.filter((element) => element.id !== action.payload),

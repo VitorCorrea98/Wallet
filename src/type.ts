@@ -43,6 +43,8 @@ export type ExpenseFormType = {
 export type ExpenseType = {
   expenses: ExpenseFormType[],
   currencies: [],
+  isUpdating: boolean,
+  updateId: null
 };
 
 export type ReduxState = {

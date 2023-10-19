@@ -4,11 +4,13 @@ import WalletForm from '../components/WalletForm';
 
 function Wallet() {
   return (
-    <div>
-      <Header />
-      <WalletForm />
+    <main>
+      <div className="flex flex-col items-center bg-white w-2/3 mx-auto">
+        <Header />
+        <WalletForm />
+      </div>
       <Table />
-    </div>
+    </main>
   );
 }
 

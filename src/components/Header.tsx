@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux';
 import { ReduxState } from '../type';
+import { MoneyIcon } from '../service/icons/MoneyIcon';
+import { UserIcon } from '../service/icons/UserIcon';
 
 function Header() {
   const email = JSON.parse(localStorage.getItem('email') as string);
@@ -14,18 +16,24 @@ function Header() {
   }, 0);
 
   return (
-    <header>
-      <p>
-        Emai:
-        {' '}
-        <span data-testid="email-field">{email}</span>
-      </p>
-      <p>
-        Despesa total:
-        <span data-testid="total-field">{totalAmount.toFixed(2)}</span>
-        {' '}
-        <span data-testid="header-currency-field">BRL</span>
-      </p>
+    <header className="flex items-center gap-20">
+      <img src="../../imgs/logo-Trybe.png" alt="Logo do projeto" />
+      <div className="flex gap-2 blue-color items-center">
+        <MoneyIcon />
+
+        <p className="text-lg">
+          Despesa total:
+        </p>
+        <div>
+          <span data-testid="total-field">{totalAmount.toFixed(2)}</span>
+          <span data-testid="header-currency-field">BRL</span>
+        </div>
+      </div>
+
+      <div className="flex gap-2 green-color items-center">
+        <UserIcon />
+        <span data-testid="email-field" className="text-lg">{email}</span>
+      </div>
 
     </header>
   );

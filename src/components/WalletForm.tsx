@@ -49,19 +49,7 @@ function WalletForm() {
 
   return (
     <div>
-      <h1>VIdaaaaaaa</h1>
-      <form onSubmit={ handleSubmit }>
-        <label htmlFor="value">
-          Valor:
-          {' '}
-          <input
-            data-testid="value-input"
-            value={ form.value }
-            type="text"
-            id="value"
-            onChange={ handleChange }
-          />
-        </label>
+      <form onSubmit={ handleSubmit } className=" blue-color">
         <label htmlFor="description">
           Descrição:
           {' '}
@@ -71,6 +59,19 @@ function WalletForm() {
             type="text"
             id="description"
             onChange={ handleChange }
+            className="border-blue"
+          />
+        </label>
+        <label htmlFor="value">
+          Valor:
+          {' '}
+          <input
+            data-testid="value-input"
+            value={ form.value }
+            type="text"
+            id="value"
+            onChange={ handleChange }
+            className="border-blue"
           />
         </label>
         <label htmlFor="currency">
@@ -82,6 +83,7 @@ function WalletForm() {
             name="currency"
             id="currency"
             onChange={ handleChange }
+            className="border-blue"
           >
             {currencies.map((element: string) => (
               <option value={ element } key={ element }>{element}</option>
@@ -97,6 +99,7 @@ function WalletForm() {
             name="method"
             id="method"
             onChange={ handleChange }
+            className="border-blue"
           >
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
@@ -104,7 +107,7 @@ function WalletForm() {
           </select>
         </label>
         <label htmlFor="tag">
-          Tag:
+          Categoria da despesa:
           {' '}
           <select
             data-testid="tag-input"
@@ -112,6 +115,7 @@ function WalletForm() {
             name="tag"
             id="tag"
             onChange={ handleChange }
+            className="border-blue"
           >
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>

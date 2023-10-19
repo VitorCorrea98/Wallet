@@ -30,27 +30,40 @@ function Login() {
   const isValid = emailCheck && passwordCheck;
 
   return (
-    <div>
-      <h1>Vidaaaaaaa</h1>
-      <form onSubmit={ handleSubmit }>
-        <input
-          type="email"
-          id="email"
-          value={ form.email }
-          onChange={ handleChange }
-          data-testid="email-input"
-          autoComplete="true"
-        />
-        <input
-          type="password"
-          id="password"
-          value={ form.password }
-          onChange={ handleChange }
-          autoComplete="true"
-          data-testid="password-input"
-        />
-        <button disabled={ !isValid } type="submit">Entrar</button>
-      </form>
+    <div className="h-screen flex justify-center items-center">
+      <div className="flex flex-col bg-white p-20 gap-10">
+        <img src="../../imgs/logo-Trybe.png" alt="Logo do projeto" />
+        <form onSubmit={ handleSubmit } className="flex flex-col gap-3">
+          <input
+            type="email"
+            id="email"
+            value={ form.email }
+            onChange={ handleChange }
+            data-testid="email-input"
+            autoComplete="true"
+            placeholder="E-mail"
+            className="outline-none border-blue p-2"
+          />
+          <input
+            type="password"
+            id="password"
+            value={ form.password }
+            onChange={ handleChange }
+            autoComplete="true"
+            data-testid="password-input"
+            placeholder="Senha"
+            className="outline-none border-blue p-2"
+          />
+          <button
+            disabled={ !isValid }
+            type="submit"
+            className={ `${isValid ? ('bg-button') : ('bg-sky-800')}
+             p-2 text-white text-xl font-bold` }
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

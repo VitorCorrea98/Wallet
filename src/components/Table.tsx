@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { ExpenseFormType, ReduxState } from '../type';
 import { DeleteExpense } from '../redux/actions';
+import DeleteIcon from '../service/icons/DeleteIcon';
+import EditIcon from '../service/icons/EditIcon';
 
 function Table() {
   const expenses = useSelector((state: ReduxState) => state.wallet.expenses);
@@ -41,13 +43,14 @@ function Table() {
                 * parseFloat(expense.exchangeRates[expense.currency].ask)).toFixed(2)}
             </td>
             <td>Real</td>
-            <td>
-              Editar/
+            <td className="flex">
+              <EditIcon />
+              /
               <button
                 data-testid="delete-btn"
                 onClick={ () => handleDelete(expense.id) }
               >
-                Excluir
+                <DeleteIcon />
               </button>
             </td>
           </tr>
