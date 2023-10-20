@@ -30,10 +30,10 @@ function Login() {
   const isValid = emailCheck && passwordCheck;
 
   return (
-    <div className="h-screen flex justify-center items-center">
-      <div className="flex flex-col bg-white p-20 gap-10">
+    <div className="h-screen flex items-center justify-center">
+      <div className="container-img-form">
         <img src="../../imgs/logo-Trybe.png" alt="Logo do projeto" />
-        <form onSubmit={ handleSubmit } className="flex flex-col gap-3">
+        <form onSubmit={ handleSubmit } className="flex flex-col gap-3 w-80">
           <input
             type="email"
             id="email"
@@ -42,7 +42,7 @@ function Login() {
             data-testid="email-input"
             autoComplete="true"
             placeholder="E-mail"
-            className="outline-none border-blue p-2"
+            className="input-login"
           />
           <input
             type="password"
@@ -52,13 +52,12 @@ function Login() {
             autoComplete="true"
             data-testid="password-input"
             placeholder="Senha"
-            className="outline-none border-blue p-2"
+            className="input-login"
           />
           <button
             disabled={ !isValid }
             type="submit"
-            className={ `${isValid ? ('bg-button') : ('bg-sky-800')}
-             p-2 text-white text-xl font-bold` }
+            className="bg-blue-700 p-2 text-white text-xl font-bold rounded-lg"
           >
             Entrar
           </button>

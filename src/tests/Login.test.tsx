@@ -5,6 +5,8 @@ import { renderWithRouterAndRedux } from './helpers/renderWith';
 test('Teste da pagina de login', () => {
   renderWithRouterAndRedux(<App />);
 
+  const emailText = 'Vitor@gmail.com';
+
   const email = screen.getByTestId('email-input');
   const password = screen.getByTestId('password-input');
 
@@ -16,15 +18,15 @@ test('Teste da pagina de login', () => {
   expect(button).toBeInTheDocument();
   expect(button).toBeDisabled();
 
-  fireEvent.change(email, { target: { value: 'Vitor@gmail.com' } });
+  fireEvent.change(email, { target: { value: emailText } });
   fireEvent.change(password, { target: { value: 'VitorBoladao08' } });
 
   expect(button).toBeEnabled();
 
-  fireEvent.change(email, { target: { value: 'Vitor@gmail.com' } });
-  fireEvent.change(password, { target: { value: 'VitorBoladao08' } });
-
   fireEvent.click(button);
 
-  screen.debug();
+  const localStorageText = localStorage.getItem('email');
+  console.log(localStorageText);
+
+  expect(screen.getByText(emailText)).toBeInTheDocument();
 });

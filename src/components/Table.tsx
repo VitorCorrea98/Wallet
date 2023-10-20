@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { ExpenseFormType, ReduxState } from '../type';
-import { DeleteExpense } from '../redux/actions';
+import { DeleteExpense, EditExpense } from '../redux/actions';
 import DeleteIcon from '../service/icons/DeleteIcon';
 import EditIcon from '../service/icons/EditIcon';
 
@@ -10,6 +10,10 @@ function Table() {
 
   const handleDelete = (id: number) => {
     dispatch(DeleteExpense(id));
+  };
+
+  const handleEdit = (id: number) => {
+    dispatch(EditExpense(id));
   };
 
   return (
@@ -44,7 +48,12 @@ function Table() {
             </td>
             <td>Real</td>
             <td className="flex">
-              <EditIcon />
+              <button
+                data-testid="edit-btn"
+                onClick={ () => handleEdit(expense.id) }
+              >
+                <EditIcon />
+              </button>
               /
               <button
                 data-testid="delete-btn"

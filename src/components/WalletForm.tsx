@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ExpenseSubmit, fetchAPI } from '../redux/actions';
+import { ExpenseSubmit, UpdateExpense, fetchAPI } from '../redux/actions';
 import {
   Dispatch, ReduxState, WalletFormType, WalletFormTypeInitialValue,
 } from '../type';
 import { fetchCurrencies } from '../service/fetch';
+import Button from './Button';
 
 function WalletForm() {
   const [form, setForm] = useState<WalletFormType>(WalletFormTypeInitialValue);
-  const { currencies } = useSelector(
+  const { currencies, isUpdating, expenses, updateId } = useSelector(
     (state:
     ReduxState) => state.wallet,
   );
@@ -23,25 +24,55 @@ function WalletForm() {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const rates = await fetchCurrencies();
-
+  const handleExpenseSubmit = (rates: any) => {
     const currentExpense = { ...form, exchangeRates: rates };
     dispatch(ExpenseSubmit(currentExpense));
 
-    setForm(() => ({
+    setForm({
       id: currentExpense.id + 1,
       value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-    }));
+    });
   };
 
-  const enabled = form.description && form.value;
+  const handleExpenseEdit = (rates: any) => {
+    const editedExpense = { ...form, exchangeRates: rates };
+
+    dispatch(UpdateExpense(editedExpense, updateId));
+    setForm({
+      id: expenses.length,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const rates = await fetchCurrencies();
+
+    if (isUpdating) {
+      handleExpenseEdit(rates);
+    } else {
+      handleExpenseSubmit(rates);
+    }
+  };
+
+  const enabled = (form.description && form.value);
+
+  useEffect(() => {
+    const expenseObj = expenses.find((expense) => expense.id === updateId);
+    if (expenseObj) {
+      const { id, value, description, currency, method, tag } = expenseObj;
+      setForm({ id, value, description, currency, method, tag });
+    }
+  }, [updateId, isUpdating, expenses]);
 
   useEffect(() => {
     dispatch(fetchAPI());
@@ -124,7 +155,7 @@ function WalletForm() {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <button disabled={ !enabled } type="submit">Adicionar despesa</button>
+        <Button enabled={ enabled } isUpdating={ isUpdating } />
       </form>
     </div>
   );

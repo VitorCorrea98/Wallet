@@ -8,6 +8,7 @@ export const GET_CURRENCIES = 'GET_CURRENCIES';
 
 export const EXPENSE_SUBMIT = 'EXPENSE_SUBMIT';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 export const UPDATE_EXPENSE = 'UPDATE_EXPENSE';
 
 export const LoginAction = ({ email, password }: FormLogin) => ({
@@ -32,6 +33,11 @@ export const ExpenseSubmit = (expense: ExpenseFormType) => (
 
 export const DeleteExpense = (id: number) => ({
   type: DELETE_EXPENSE,
+  payload: id,
+});
+
+export const EditExpense = (id: number) => ({
+  type: EDIT_EXPENSE,
   payload: id,
 });
 
