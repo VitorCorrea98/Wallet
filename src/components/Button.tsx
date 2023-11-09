@@ -8,11 +8,14 @@ type ButtonProps = {
 function Button({ enabled, isUpdating }: ButtonProps) {
   return (
     <div>
-      {isUpdating ? (
-        <button disabled={ !enabled } type="submit">Editar despesa</button>
-      ) : (
-        <button disabled={ !enabled } type="submit">Adicionar despesa</button>
-      )}
+      <button
+        disabled={ !enabled }
+        type="submit"
+      >
+        {isUpdating ? 'Editar ' : 'Adicionar '}
+        {' '}
+        despesa
+      </button>
     </div>
   );
 }

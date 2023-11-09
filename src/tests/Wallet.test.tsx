@@ -23,9 +23,5 @@ describe('Teste do componente Wallet', () => {
     fireEvent.change(inputValue, { target: { value: ValorText } });
 
     fireEvent.click(AdicionarButton);
-
-    // const EditIcon = screen.getByTestId('edit-icon');
-
-    // expect(EditIcon).toBeInTheDocument();
   });
 });

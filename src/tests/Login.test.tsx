@@ -6,6 +6,7 @@ test('Teste da pagina de login', () => {
   renderWithRouterAndRedux(<App />);
 
   const emailText = 'Vitor@gmail.com';
+  const passwordText = 'VitorBoladao08';
 
   const email = screen.getByTestId('email-input');
   const password = screen.getByTestId('password-input');
@@ -19,7 +20,7 @@ test('Teste da pagina de login', () => {
   expect(button).toBeDisabled();
 
   fireEvent.change(email, { target: { value: emailText } });
-  fireEvent.change(password, { target: { value: 'VitorBoladao08' } });
+  fireEvent.change(password, { target: { value: passwordText } });
 
   expect(button).toBeEnabled();
 

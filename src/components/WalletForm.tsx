@@ -29,12 +29,8 @@ function WalletForm() {
     dispatch(ExpenseSubmit(currentExpense));
 
     setForm({
+      ...WalletFormTypeInitialValue,
       id: currentExpense.id + 1,
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
     });
   };
 
@@ -43,12 +39,8 @@ function WalletForm() {
 
     dispatch(UpdateExpense(editedExpense, updateId));
     setForm({
+      ...WalletFormTypeInitialValue,
       id: expenses.length,
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
     });
   };
 
