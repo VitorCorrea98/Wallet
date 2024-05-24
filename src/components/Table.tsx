@@ -17,9 +17,9 @@ function Table() {
   };
 
   return (
-    <table>
-      <thead>
-        <tr>
+    <table className="grid w-full mt-4 divide-y-2">
+      <thead className=" m-2">
+        <tr className="grid grid-cols-9 place-items-center    ">
           <th>Descrição</th>
           <th>Tag</th>
           <th>Método de pagamento</th>
@@ -31,9 +31,14 @@ function Table() {
           <th>Editar/Excluir</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="flex flex-col gap-3 m-2">
         { expenses.length ? (expenses.map((expense: ExpenseFormType) => (
-          <tr key={ expense.id }>
+          <tr
+            key={ expense.id }
+            className="grid grid-cols-9
+           rounded-md text-center items-center
+            p-1"
+          >
             <td>{expense.description}</td>
             <td>{expense.tag}</td>
             <td>{expense.method}</td>
@@ -47,7 +52,7 @@ function Table() {
                 * parseFloat(expense.exchangeRates[expense.currency].ask)).toFixed(2)}
             </td>
             <td>Real</td>
-            <td className="flex">
+            <td className="flex justify-center">
               <button
                 data-testid="edit-btn"
                 onClick={ () => handleEdit(expense.id) }
